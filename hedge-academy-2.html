@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hedge Academy — Менторство по хедж-угодах</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:#0f0f0f;color:#f0ede6;font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 40px;height:56px;
+  background:rgba(15,15,15,0.95);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+}
+.nav-logo{font-size:14px;font-weight:800;color:#f0ede6;text-decoration:none;letter-spacing:.06em;}
+.nav-logo span{color:#c9a84c;}
+.nav-cta{background:#c9a84c;color:#0f0f0f;font-size:12px;font-weight:800;padding:9px 22px;border-radius:100px;text-decoration:none;letter-spacing:.05em;text-transform:uppercase;transition:opacity .2s;}
+.nav-cta:hover{opacity:.85;}
+
+/* PHOTO BLOCKS */
+.photo-block{
+  position:relative;
+  width:100%;
+  min-height:100vh;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+}
+.photo-block img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center top;
+}
+.photo-block .overlay{
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.1) 100%);
+}
+.photo-block .overlay-left{
+  background:linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.1) 100%);
+}
+.photo-content{
+  position:relative;
+  z-index:2;
+  padding:60px 48px;
+  max-width:720px;
+}
+.photo-content.right{
+  margin-left:auto;
+  text-align:right;
+}
+.photo-content.center{
+  margin:0 auto;
+  text-align:center;
+  max-width:860px;
+}
+
+/* HERO SPECIFIC */
+.hero-block{
+  min-height:100vh;
+  background:#0f0f0f;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 24px 60px;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(201,168,76,0.1);border:1px solid rgba(201,168,76,0.25);
+  border-radius:100px;padding:7px 18px;margin-bottom:32px;
+  font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c9a84c;
+}
+.dot{width:6px;height:6px;border-radius:50%;background:#c9a84c;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* TYPOGRAPHY */
+.headline{
+  font-size:clamp(32px,5vw,72px);
+  font-weight:900;
+  line-height:1.05;
+  letter-spacing:-.025em;
+  color:#ffffff;
+  margin-bottom:20px;
+}
+.headline em{color:#c9a84c;font-style:normal;}
+.headline .cross{color:#ff4444;font-style:normal;}
+.subtext{
+  font-size:clamp(16px,2vw,22px);
+  font-weight:400;
+  color:rgba(240,237,230,0.7);
+  line-height:1.65;
+  margin-bottom:36px;
+}
+.label{
+  font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;
+  color:#c9a84c;margin-bottom:14px;
+}
+
+/* BUTTONS */
+.btn-gold{display:inline-flex;align-items:center;gap:8px;background:#c9a84c;color:#0f0f0f;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:800;padding:16px 36px;border-radius:100px;text-decoration:none;letter-spacing:.03em;transition:opacity .2s;}
+.btn-gold:hover{opacity:.85;}
+.btn-white{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:#fff;font-family:'Montserrat',sans-serif;font-size:14px;font-weight:700;padding:15px 36px;border-radius:100px;text-decoration:none;letter-spacing:.03em;transition:all .2s;}
+.btn-white:hover{background:rgba(255,255,255,0.15);}
+.btns{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:8px;}
+
+/* STICKER-STYLE TEXT */
+.sticker{
+  display:inline-block;
+  background:#c9a84c;
+  color:#0f0f0f;
+  font-size:clamp(13px,1.5vw,16px);
+  font-weight:800;
+  padding:8px 20px;
+  border-radius:4px;
+  letter-spacing:.02em;
+  margin-bottom:20px;
+  text-transform:uppercase;
+}
+
+/* VIDEO CIRCLE */
+.video-wrap{margin:0 auto 36px;width:180px;height:180px;}
+.video-circle{width:180px;height:180px;border-radius:50%;object-fit:cover;display:block;border:3px solid #c9a84c;box-shadow:0 0 40px rgba(201,168,76,0.3);}
+
+/* DARK SECTION */
+.dark-section{background:#0f0f0f;padding:80px 40px;text-align:center;}
+.dark-section .headline{margin-bottom:48px;}
+
+/* INCLUDES */
+.includes{background:#141414;padding:80px 40px;}
+.inc-inner{max-width:860px;margin:0 auto;}
+.inc-item{display:flex;gap:20px;padding:24px 0;border-bottom:1px solid rgba(255,255,255,0.06);}
+.inc-item:first-child{border-top:1px solid rgba(255,255,255,0.06);}
+.inc-num{font-size:11px;color:#c9a84c;font-weight:700;min-width:24px;padding-top:3px;}
+.inc-title{font-size:16px;font-weight:700;color:#fff;margin-bottom:4px;}
+.inc-desc{font-size:13px;color:rgba(240,237,230,0.55);line-height:1.65;font-weight:400;}
+
+/* PRICE */
+.price-section{background:#0a0a0a;padding:0;}
+.price-block{
+  position:relative;
+  min-height:60vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:80px 40px;
+  border-top:1px solid rgba(255,255,255,0.06);
+}
+.price-big{font-size:clamp(60px,10vw,140px);font-weight:900;color:#ffffff;line-height:1;letter-spacing:-.04em;margin-bottom:4px;}
+.price-label{font-size:clamp(14px,2vw,20px);color:rgba(255,255,255,0.45);font-weight:500;margin-bottom:12px;}
+.price-comment{font-size:clamp(16px,2vw,24px);font-weight:700;color:#c9a84c;line-height:1.4;max-width:600px;margin:0 auto 40px;}
+
+/* RESULTS */
+.results-bar{display:flex;gap:1px;background:rgba(255,255,255,0.06);border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);}
+.rb{flex:1;background:#141414;padding:32px 24px;text-align:center;min-width:120px;}
+.rb-val{font-size:36px;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:-.02em;}
+.rb-val em{color:#c9a84c;font-style:normal;}
+.rb-label{font-size:12px;color:rgba(240,237,230,0.45);font-weight:500;}
+
+/* FAQ */
+.faq-section{background:#141414;padding:80px 40px;}
+.faq-inner{max-width:720px;margin:0 auto;}
+.faq-list{border:1px solid rgba(255,255,255,0.08);}
+.faq-item{border-bottom:1px solid rgba(255,255,255,0.08);}
+.faq-item:last-child{border-bottom:none;}
+.faq-q{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 24px;cursor:pointer;font-size:14px;font-weight:600;color:#fff;background:#141414;user-select:none;transition:background .15s;}
+.faq-q:hover{background:#1a1a1a;}
+.faq-icon{color:rgba(255,255,255,0.3);font-size:18px;flex-shrink:0;transition:transform .2s;}
+.faq-a{padding:0 24px;max-height:0;overflow:hidden;transition:max-height .3s,padding .3s;font-size:13px;color:rgba(240,237,230,0.55);line-height:1.75;background:#141414;font-weight:400;}
+.faq-item.open .faq-a{max-height:300px;padding:0 24px 20px;}
+.faq-item.open .faq-icon{transform:rotate(45deg);}
+
+/* FOOTER */
+footer{padding:24px 40px;display:flex;justify-content:space-between;align-items:center;border-top:1px solid rgba(255,255,255,0.06);background:#0f0f0f;flex-wrap:wrap;gap:12px;}
+.foot-logo{font-size:13px;font-weight:800;color:#fff;}
+.foot-logo span{color:#c9a84c;}
+.foot-note{font-size:11px;color:rgba(255,255,255,0.25);}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .photo-content{padding:40px 24px;}
+  .photo-content.right{text-align:left;}
+  .dark-section{padding:60px 24px;}
+  .includes{padding:60px 24px;}
+  .faq-section{padding:60px 24px;}
+  .price-block{padding:60px 24px;}
+  .results-bar{flex-wrap:wrap;}
+  footer{padding:20px;flex-direction:column;align-items:flex-start;}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">Hedge<span>.</span>Academy</a>
+  <a href="https://t.me/crypoviy" class="nav-cta" target="_blank">Записатись</a>
+</nav>
+
+<!-- BLOCK 1: HERO — фото зі скронею -->
+<section class="photo-block" style="min-height:100vh;">
+  <img src="photo4.jpeg" alt="">
+  <div class="overlay"></div>
+  <div class="photo-content" style="padding-bottom:80px;">
+    <div class="label" style="margin-bottom:20px;">Менторство по хедж-угодах</div>
+    <div class="headline">
+      Ці <span class="cross">дебіли</span> досі вчать тебе<br>
+      вгадувати, куди піде ціна.<br>
+      <em>ХАХАХАХАХ.</em>
+    </div>
+    <div class="headline" style="font-size:clamp(20px,3vw,42px);color:rgba(255,255,255,0.75);margin-bottom:32px;">
+      Цього ніхто не знає.<br>
+      Але уяви — можна заробляти <em>100% на рік</em>,<br>
+      знаючи <em>КОЛИ</em>, а не куди.
+    </div>
+    <div class="btns" style="justify-content:flex-start;">
+      <a href="https://t.me/crypoviy" class="btn-gold" target="_blank">Хочу знати як →</a>
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO CIRCLE BREAK -->
+<div class="dark-section" style="padding:64px 24px;">
+  <div class="video-wrap">
+    <iframe
+      src="https://www.youtube.com/embed/klVfc3Z9nlw?autoplay=1&mute=1&loop=1&playlist=klVfc3Z9nlw&controls=0&rel=0"
+      allow="autoplay; encrypted-media"
+      allowfullscreen
+      style="width:180px;height:180px;border-radius:50%;border:3px solid #c9a84c;box-shadow:0 0 40px rgba(201,168,76,0.3);display:block;"
+      frameborder="0">
+    </iframe>
+  </div>
+  <div class="label" style="margin-bottom:12px;">Привіт, я Артем</div>
+  <div style="font-size:clamp(15px,2vw,20px);color:rgba(240,237,230,0.6);line-height:1.65;max-width:540px;margin:0 auto 32px;font-weight:400;">
+    14 місяців реальних угод, авторський бот і система яка працює поки я сплю. Розповім як — індивідуально.
+  </div>
+  <a href="#includes" style="font-size:13px;color:#c9a84c;font-weight:700;text-decoration:none;letter-spacing:.06em;border-bottom:1px solid rgba(201,168,76,0.3);padding-bottom:2px;">Що ти отримуєш ↓</a>
+</div>
+
+<!-- BLOCK 2: INCLUDES — руки на поясі -->
+<section class="photo-block" style="min-height:90vh;">
+  <img src="photo2.jpeg" alt="">
+  <div class="overlay overlay-left"></div>
+  <div class="photo-content">
+    <div class="sticker">Що входить</div>
+    <div class="headline" style="font-size:clamp(26px,4vw,56px);margin-bottom:16px;">
+      Ніяких групових курсів.<br>Ми тут не хороводи водимо.
+    </div>
+    <div class="subtext" style="margin-bottom:0;">
+      Тільки індивідуальний підхід, дзвінки та живе спілкування.
+    </div>
+  </div>
+</section>
+
+<!-- INCLUDES LIST -->
+<section class="includes" id="includes">
+  <div class="inc-inner">
+    <div class="inc-item">
+      <div class="inc-num">01</div>
+      <div>
+        <div class="inc-title">Бот-маркетмейкер для Polymarket</div>
+        <div class="inc-desc">Авторський бот що автоматично виставляє лімітні ордери та хеджує позицію. Немає у вільному доступі.</div>
+      </div>
+    </div>
+    <div class="inc-item">
+      <div class="inc-num">02</div>
+      <div>
+        <div class="inc-title">5 індивідуальних дзвінків</div>
+        <div class="inc-desc">Практика та розбір позицій особисто. Старт, прогрес, фінал — і два додаткові за потребою.</div>
+      </div>
+    </div>
+    <div class="inc-item">
+      <div class="inc-num">03</div>
+      <div>
+        <div class="inc-title">Чат 24/7 зі мною особисто</div>
+        <div class="inc-desc">Пишеш в будь-який момент — відповідаю на питання по угодах, стратегіях і розрахунках.</div>
+      </div>
+    </div>
+    <div class="inc-item">
+      <div class="inc-num">04</div>
+      <div>
+        <div class="inc-title">Ком'юніті з живими угодами</div>
+        <div class="inc-desc">Закрита група де я публікую всі угоди в реальному часі — відкриття, закриття, логіку входу.</div>
+      </div>
+    </div>
+    <div class="inc-item">
+      <div class="inc-num">05</div>
+      <div>
+        <div class="inc-title">Копітрейдинг</div>
+        <div class="inc-desc">Підключаєш і система автоматично повторює мої угоди. Торгуєш "не думаючи".</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOCK 3: BOT — з ноутбуком -->
+<section class="photo-block" style="min-height:90vh;">
+  <img src="photo1.jpeg" alt="">
+  <div class="overlay overlay-left"></div>
+  <div class="photo-content">
+    <div class="sticker">Автоматизація</div>
+    <div class="headline" style="font-size:clamp(26px,4vw,54px);margin-bottom:16px;">
+      Нема часу на трейдинг?<br>
+      <em>Не біда.</em>
+    </div>
+    <div class="subtext">
+      Юзай мого бота та підключай копітрейдинг — система сама робить угоди поки ти живеш своє життя.
+    </div>
+  </div>
+</section>
+
+<!-- RESULTS -->
+<div class="results-bar" id="results">
+  <div class="rb"><div class="rb-val"><em>+630%</em></div><div class="rb-label">сукупний прибуток по всіх угодах</div></div>
+  <div class="rb"><div class="rb-val">50<em>+</em></div><div class="rb-label">угод за 14 місяців</div></div>
+  <div class="rb"><div class="rb-val"><em>~0%</em></div><div class="rb-label">ризик при правильному вході</div></div>
+</div>
+
+<!-- BLOCK 4: RESULTS — з книгами -->
+<section class="photo-block" style="min-height:90vh;">
+  <img src="photo3.jpeg" alt="">
+  <div class="overlay"></div>
+  <div class="photo-content center" style="padding-bottom:80px;">
+    <div class="headline" style="font-size:clamp(26px,4vw,60px);margin-bottom:20px;">
+      Казали мені в школі —<br>вчи математику.<br>
+      Тепер вона дає мені <em>140%</em> прибутку на рік.
+    </div>
+    <div class="subtext" style="max-width:520px;margin:0 auto 32px;">
+      Не віриш? Всі 50+ угод публічні — відкриття, закриття, результат кожної. Включно з мінусовими.
+    </div>
+    <div class="btns">
+      <a href="https://khaski.github.io/Crypovo-hedge-results/" class="btn-gold" target="_blank">Переглянути всі угоди →</a>
+      <a href="https://t.me/crypovoblog" class="btn-white" target="_blank">TG-канал</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICE -->
+<section class="price-block" id="price">
+  <div style="position:relative;z-index:1;text-align:center;width:100%;">
+    <div class="label" style="margin-bottom:20px;">Вартість</div>
+    <div class="price-label">Менторство по хедж-угодах</div>
+    <div class="price-big">$2 500</div>
+    <div class="price-comment">
+      Ну так, дохуя.<br>А ти як думав — гроші робляться?
+    </div>
+    <div class="btns">
+      <a href="https://t.me/crypoviy" class="btn-gold" target="_blank">Записатись →</a>
+      <a href="https://t.me/crypoviy" class="btn-white" target="_blank">Хочеш захейтити за ціну? Заходь і хейть мене в TG 😂</a>
+    </div>
+    <div style="margin-top:24px;font-size:13px;color:rgba(255,255,255,0.3);font-weight:400;">
+      Не впевнений що підходить? <a href="https://t.me/crypoviy" target="_blank" style="color:#c9a84c;text-decoration:none;font-weight:600;">Забронюй безкоштовний дзвінок на 15 хв</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="label" style="margin-bottom:12px;">FAQ</div>
+    <div class="headline" style="font-size:clamp(24px,3vw,40px);margin-bottom:36px;">Питання та <em>відповіді</em></div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Який мінімальний депозит для старту? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Від $2 000. Саме з цього порогу хедж-стратегії починають давати відчутний прибуток.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Які ризики втрати капіталу? <span class="faq-icon">+</span></div>
+        <div class="faq-a">В хедж-стратегіях ми не прогнозуємо куди піде курс — ми заробляємо на волатильності. З будь-якої угоди можна вийти з максимальним збитком 3–5%.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Скільки часу займає трейдинг на день? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Після налаштування — 30–60 хвилин на тиждень. Бот і копітрейдинг роблять все автоматично.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Що якщо я новачок у криптовалюті? <span class="faq-icon">+</span></div>
+        <div class="faq-a">Є нульовий модуль де розбираємо все з нуля. Якщо знаєш як відкрити рахунок на біржі — цього достатньо.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section style="background:#0a0a0a;text-align:center;padding:88px 40px;border-top:1px solid rgba(255,255,255,0.06);">
+  <div class="label" style="margin-bottom:16px;">Готовий?</div>
+  <div class="headline" style="font-size:clamp(28px,4vw,56px);max-width:560px;margin:0 auto 20px;">
+    Почни заробляти<br><em>системно</em>
+  </div>
+  <div style="font-size:15px;color:rgba(255,255,255,0.4);margin-bottom:36px;line-height:1.65;">Напиши в Telegram — розберемось чи підходить тобі менторство.</div>
+  <a href="https://t.me/crypoviy" class="btn-gold" target="_blank">Написати в Telegram →</a>
+</section>
+
+<footer>
+  <div class="foot-logo">Hedge<span>.</span>Academy · @crypoviy</div>
+  <div class="foot-note">Торгівля криптовалютою пов'язана з ризиками. Минулі результати не гарантують майбутніх.</div>
+</footer>
+
+<script>
+function faq(el){el.parentElement.classList.toggle('open');}
+</script>
+</body>
+</html>
